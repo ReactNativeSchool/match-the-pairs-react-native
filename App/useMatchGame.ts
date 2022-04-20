@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 
-import { Emoji } from "./emojis";
+import emojis, { Emoji } from "./emojis";
 
 interface Props {
   emojis: Emoji[];
@@ -11,44 +11,96 @@ const shuffleEmojis = (deck: Emoji[]) => {
   return _.shuffle([...deck, ...deck]);
 };
 
-export const useMatchingPairs = ({ emojis = [] }: Props) => {
-  const [randomEmojis, setEmojis] = React.useState(shuffleEmojis(emojis));
-  const [moveCount, setMoveCount] = React.useState(0);
+const initialState = {
+  randomEmojis: shuffleEmojis(emojis),
+  moveCount: 0,
+  selectedCardIndex: null,
+  compareCardIndex: null,
+  matchingIndexes: [],
+};
 
-  const [selectedCardIndex, setSelectedCardIndex] = React.useState<
-    number | null
-  >(null);
-  const [compareCardIndex, setCompareCardIndex] = React.useState<number | null>(
-    null
-  );
+type ReducerState = {
+  randomEmojis: Emoji[];
+  moveCount: number;
+  selectedCardIndex: number | null;
+  compareCardIndex: number | null;
+  matchingIndexes: number[];
+};
 
-  const [matchingIndexes, setMatchingIndex] = React.useState<number[]>([]);
+type ReducerAction =
+  | {
+      type: "CLEAR_SELECTIONS" | "RESET";
+    }
+  | {
+      type: "INITIAL_SELECTION" | "COMPARE_SELECTION";
+      payload: number;
+    };
+
+const reducer = (state: ReducerState, action: ReducerAction) => {
+  switch (action.type) {
+    case "INITIAL_SELECTION":
+      return {
+        ...state,
+        selectedCardIndex: action.payload,
+      };
+    case "COMPARE_SELECTION":
+      let matchingIndexes = [...state.matchingIndexes];
+      if (
+        state.selectedCardIndex &&
+        state.randomEmojis[state.selectedCardIndex].emoji ===
+          state.randomEmojis[action.payload]?.emoji
+      ) {
+        matchingIndexes = [
+          ...state.matchingIndexes,
+          state.selectedCardIndex,
+          action.payload,
+        ];
+      }
+
+      return {
+        ...state,
+        moveCount: state.moveCount + 1,
+        compareCardIndex: action.payload,
+        matchingIndexes,
+      };
+    case "CLEAR_SELECTIONS":
+      return {
+        ...state,
+        selectedCardIndex: null,
+        compareCardIndex: null,
+      };
+    case "RESET":
+      // Reshuffle the emojis otherwise it will be the same as the first game
+      return { ...initialState, randomEmojis: shuffleEmojis(emojis) };
+    default:
+      return state;
+  }
+};
+
+export const useMatchingPairs = () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const {
+    randomEmojis,
+    moveCount,
+    selectedCardIndex,
+    compareCardIndex,
+    matchingIndexes,
+  } = state;
 
   const handlePress = (index: number) => {
     if (selectedCardIndex === null) {
-      setSelectedCardIndex(index);
+      dispatch({ type: "INITIAL_SELECTION", payload: index });
       return;
     }
 
-    setMoveCount((previous) => previous + 1);
-
-    if (randomEmojis[selectedCardIndex].emoji === randomEmojis[index].emoji) {
-      setMatchingIndex([...matchingIndexes, selectedCardIndex, index]);
-    }
-
-    setCompareCardIndex(index);
+    dispatch({ type: "COMPARE_SELECTION", payload: index });
     setTimeout(() => {
-      setSelectedCardIndex(null);
-      setCompareCardIndex(null);
+      dispatch({ type: "CLEAR_SELECTIONS" });
     }, 500);
   };
 
   const resetGame = () => {
-    setEmojis(shuffleEmojis(emojis));
-    setMoveCount(0);
-    setSelectedCardIndex(null);
-    setCompareCardIndex(null);
-    setMatchingIndex([]);
+    dispatch({ type: "RESET" });
   };
 
   // Better way to do this?

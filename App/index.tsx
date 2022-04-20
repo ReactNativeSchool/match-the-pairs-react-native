@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, SafeAreaView, Text, View, Button } from "react-native";
 
 import { Grid } from "./components/Grid";
-import emojis from "./emojis";
 import { useMatchingPairs } from "./useMatchGame";
 
 export default function App() {
@@ -13,7 +12,7 @@ export default function App() {
     visibleCards,
     isGameComplete,
     resetGame,
-  } = useMatchingPairs({ emojis });
+  } = useMatchingPairs();
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
