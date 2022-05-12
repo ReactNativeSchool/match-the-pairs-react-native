@@ -118,6 +118,8 @@ export const useMatchingPairs = () => {
     moveCount,
     visibleCards,
     isGameComplete: matchingIndexes.length === randomEmojis.length,
+    pairsMatched: matchingIndexes.length / 2,
+    totalPairs: randomEmojis.length / 2,
     resetGame,
   };
 };

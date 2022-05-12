@@ -18,13 +18,7 @@ interface CardProps {
 
 const Card = ({ onPress, emoji, active }: CardProps) => {
   return (
-    <Pressable
-      onPress={() => onPress()}
-      style={({ pressed }) => [
-        styles.item,
-        { backgroundColor: pressed ? "#aaa" : "#ccc" },
-      ]}
-    >
+    <Pressable onPress={() => onPress()} style={styles.item}>
       <Text style={styles.itemText}>{active ? emoji.emoji : "❓"}</Text>
     </Pressable>
   );
@@ -62,8 +56,8 @@ export const Grid = ({ emojis = [], onPress, matchingIndexes }: GridProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     marginHorizontal: 5,
   },
   row: {
@@ -76,6 +70,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 5,
     borderRadius: 8,
+    borderColor: "#ccc",
+    borderWidth: 2,
+    backgroundColor: "#f3f3f3",
   },
   itemText: { fontSize: 50 },
 });
