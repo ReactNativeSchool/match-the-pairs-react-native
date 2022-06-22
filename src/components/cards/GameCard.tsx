@@ -1,8 +1,8 @@
 import {
-  View,
   StyleSheet,
   Text,
   ViewStyle,
+  TextStyle,
   TouchableOpacity,
 } from "react-native";
 
@@ -16,6 +16,7 @@ type GameCardProps = {
   emojis: Emoji[];
   onPress: () => void;
   visible: boolean;
+  disabled: boolean;
 };
 
 export const GameCard = ({
@@ -24,18 +25,29 @@ export const GameCard = ({
   selected,
   onPress,
   visible,
+  disabled,
 }: GameCardProps) => {
   const cardStyles: ViewStyle[] = [styles.card];
+  const textStyles: TextStyle[] = [styles.text];
 
   if (selected) {
     cardStyles.push(styles.cardSelected);
   }
 
+  if (disabled) {
+    textStyles.push(styles.textDisabled);
+  }
+
   const emoji = emojis[index];
 
   return (
-    <TouchableOpacity style={cardStyles} onPress={onPress} activeOpacity={0.75}>
-      <Text style={styles.text}>{visible ? emoji?.emoji : "❓"}</Text>
+    <TouchableOpacity
+      style={cardStyles}
+      onPress={onPress}
+      activeOpacity={0.75}
+      disabled={disabled}
+    >
+      <Text style={textStyles}>{visible ? emoji?.emoji : "❓"}</Text>
     </TouchableOpacity>
   );
 };
@@ -57,5 +69,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 35,
+  },
+  textDisabled: {
+    opacity: 0.7,
   },
 });

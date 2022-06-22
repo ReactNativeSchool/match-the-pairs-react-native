@@ -21,7 +21,8 @@ const MatchThePairs = () => {
     reset,
     chooseCard,
     activeCardIndex,
-    visibleCards,
+    matchedCards,
+    comparisonCards,
     totalMoves,
     matchCount,
     totalPairs,
@@ -49,16 +50,23 @@ const MatchThePairs = () => {
 
       {ROWS.map((indices, rowIndex) => (
         <View style={styles.row} key={rowIndex}>
-          {indices.map((emojiIndex) => (
-            <GameCard
-              key={emojiIndex}
-              index={emojiIndex}
-              emojis={emojis}
-              onPress={() => handlePress(emojiIndex)}
-              selected={activeCardIndex === emojiIndex}
-              visible={visibleCards.includes(emojiIndex)}
-            />
-          ))}
+          {indices.map((emojiIndex) => {
+            const inMatchedCard = matchedCards.includes(emojiIndex);
+            const cardIsVisible =
+              inMatchedCard || comparisonCards.includes(emojiIndex);
+
+            return (
+              <GameCard
+                key={emojiIndex}
+                index={emojiIndex}
+                emojis={emojis}
+                onPress={() => handlePress(emojiIndex)}
+                selected={activeCardIndex === emojiIndex}
+                visible={cardIsVisible}
+                disabled={inMatchedCard}
+              />
+            );
+          })}
         </View>
       ))}
 
