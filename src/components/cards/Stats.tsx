@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, ViewStyle } from "react-native";
 
-import { Colors, Spacing } from "src/constants";
+import { Colors, Spacing, Theme } from "src/constants";
 
 type StatsCardProps = {
   title: string;
@@ -19,9 +19,8 @@ export const StatsCard = (props: StatsCardProps) => {
   let progressBarWidth = 0;
 
   if (showProgressBar) {
-    progressBarStyles.push({ backgroundColor: Colors.cardBg });
+    progressBarStyles.push({ backgroundColor: Colors.greyMedium });
     progressBarWidth = (primaryValue / secondaryValue) * cardWidth;
-    console.log(progressBarWidth, cardWidth);
   }
 
   return (
@@ -45,45 +44,46 @@ export const StatsCard = (props: StatsCardProps) => {
   );
 };
 
+const borderRadius = Theme.radius;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.statsBg,
-    margin: Spacing.cardMargin,
-    borderRadius: Spacing.borderRadius,
+    backgroundColor: Colors.greyLight,
+    margin: Spacing.sm,
+    borderRadius,
   },
   content: {
-    padding: Spacing.cardMargin,
+    padding: Spacing.sm,
   },
   title: {
     fontWeight: "500",
     fontSize: 16,
-    color: Colors.primaryText,
-    marginBottom: 3,
+    color: Colors.greyDarkest,
+    marginBottom: Spacing.xs,
   },
   primaryValue: {
-    color: Colors.primaryText,
+    color: Colors.greyDarkest,
     fontSize: 20,
     fontWeight: "600",
   },
   secondaryValue: {
-    color: Colors.secondaryText,
+    color: Colors.greyDark,
     fontSize: 14,
     fontWeight: "500",
   },
   progressBarContainer: {
     backgroundColor: "transparent",
     height: 8,
-    borderTopLeftRadius: Spacing.borderRadius,
-    borderTopRightRadius: Spacing.borderRadius,
-    marginBottom: 3,
+    borderTopLeftRadius: borderRadius,
+    borderTopRightRadius: borderRadius,
+    marginBottom: Spacing.xs,
   },
   progressBar: {
     height: 8,
     width: 0,
-    backgroundColor: Colors.progressBar,
-    borderTopLeftRadius: Spacing.borderRadius,
-    borderTopRightRadius: Spacing.borderRadius,
-    borderBottomRightRadius: Spacing.borderRadius,
+    backgroundColor: Colors.blueMedium,
+    borderTopLeftRadius: borderRadius,
+    borderTopRightRadius: borderRadius,
+    borderBottomRightRadius: borderRadius,
   },
 });

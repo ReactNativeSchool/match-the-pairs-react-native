@@ -1,12 +1,11 @@
 export default {
-  cardBg: "#e8ebed",
-  statsBg: "#f9fafa",
+  greyLight: "#f9fafa",
+  greyMedium: "#e8ebed",
+  greyDark: "#676c6f",
+  greyDarkest: "#34383c",
 
-  primaryText: "#34383c",
-  secondaryText: "#676c6f",
+  tealLight: "#5cebdf",
+  tealDark: "#054861",
 
-  progressBar: "#2451f5",
-
-  primary: "#5cebdf",
-  primaryDark: "#054861",
+  blueMedium: "#2451f5",
 };

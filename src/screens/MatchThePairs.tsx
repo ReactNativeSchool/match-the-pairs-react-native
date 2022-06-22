@@ -10,7 +10,7 @@ const MatchThePairs = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
-      <View style={styles.row}>
+      <View style={[styles.row, styles.header]}>
         <Text style={styles.headerText}>Match the pairs 🤔</Text>
       </View>
       <View style={[styles.row, styles.stats]}>
@@ -56,22 +56,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerText: {
-    color: Colors.primaryText,
+    color: Colors.greyDarkest,
     fontSize: 20,
     fontWeight: "600",
-    marginTop: Spacing.cardMargin * 2,
-    marginBottom: Spacing.cardMargin * 4,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.xl,
   },
   row: {
     flexDirection: "row",
-    marginHorizontal: Spacing.cardMargin,
+    marginHorizontal: Spacing.sm,
+  },
+  header: {
+    marginHorizontal: Spacing.md,
   },
   stats: {
-    marginBottom: Spacing.cardMargin * 3,
+    marginBottom: Spacing.lg,
   },
   actions: {
     justifyContent: "center",
-    marginTop: Spacing.cardMargin * 4,
+    marginTop: Spacing.xl,
   },
 });
 

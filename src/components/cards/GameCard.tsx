@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, ViewStyle } from "react-native";
 
-import { Colors, Spacing } from "constants/index";
+import { Colors, Spacing, Theme } from "constants/index";
 
 type GameCardProps = {
   selected?: boolean;
@@ -23,17 +23,17 @@ export const GameCard = (props: GameCardProps) => {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: Colors.cardBg,
+    backgroundColor: Colors.greyMedium,
     justifyContent: "center",
     alignItems: "center",
-    margin: Spacing.cardMargin,
-    borderRadius: Spacing.borderRadius,
+    margin: Spacing.sm,
+    borderRadius: Theme.radius,
     paddingVertical: 35,
     borderWidth: 2,
-    borderColor: Colors.cardBg,
+    borderColor: Colors.greyMedium,
   },
   cardSelected: {
-    borderColor: Colors.primary,
+    borderColor: Colors.tealLight,
   },
   text: {
     fontSize: 35,

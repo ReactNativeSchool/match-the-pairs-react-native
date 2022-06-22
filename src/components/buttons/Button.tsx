@@ -6,7 +6,7 @@ import {
   TextStyle,
 } from "react-native";
 
-import { Colors, Spacing } from "constants/index";
+import { Colors, Spacing, Theme } from "constants/index";
 
 type ButtonProps = {
   children: string;
@@ -32,21 +32,21 @@ export const Button = ({ onPress, children, type }: ButtonProps) => {
 
 const styles = StyleSheet.create({
   button: {
-    padding: Spacing.buttonPadding,
-    paddingHorizontal: Spacing.buttonPadding * 2,
-    backgroundColor: Colors.cardBg,
-    margin: Spacing.cardMargin,
-    borderRadius: Spacing.borderRadius / 2,
+    padding: Spacing.md,
+    paddingHorizontal: Spacing.xl,
+    backgroundColor: Colors.greyMedium,
+    margin: Spacing.sm,
+    borderRadius: Theme.radiusSm,
   },
   buttonPrimary: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.tealLight,
   },
   text: {
-    color: Colors.primaryText,
+    color: Colors.greyDarkest,
     fontWeight: "500",
     fontSize: 16,
   },
   textPrimary: {
-    color: Colors.primaryText,
+    color: Colors.tealDark,
   },
 });
