@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: Spacing.sm,
     borderRadius: Theme.radius,
-    paddingVertical: 35,
     borderWidth: 2,
     borderColor: Colors.greyMedium,
   },

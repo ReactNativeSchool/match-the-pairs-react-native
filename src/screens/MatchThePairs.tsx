@@ -49,7 +49,7 @@ const MatchThePairs = () => {
       </View>
 
       {ROWS.map((indices, rowIndex) => (
-        <View style={styles.row} key={rowIndex}>
+        <View style={[styles.row, styles.gameRow]} key={rowIndex}>
           {indices.map((emojiIndex) => {
             const inMatchedCard = matchedCards.includes(emojiIndex);
             const cardIsVisible =
@@ -94,6 +94,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginHorizontal: Spacing.sm,
+  },
+  gameRow: {
+    flex: 1,
   },
   header: {
     marginHorizontal: Spacing.md,
