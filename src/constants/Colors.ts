@@ -6,4 +6,7 @@ export default {
   secondaryText: "#676c6f",
 
   progressBar: "#2451f5",
+
+  primary: "#5cebdf",
+  primaryDark: "#054861",
 };

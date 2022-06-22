@@ -1,10 +1,20 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ViewStyle } from "react-native";
 
 import { Colors, Spacing } from "constants/index";
 
-export const GameCard = () => {
+type GameCardProps = {
+  selected?: boolean;
+};
+
+export const GameCard = (props: GameCardProps) => {
+  const cardStyles: ViewStyle[] = [styles.card];
+
+  if (props.selected) {
+    cardStyles.push(styles.cardSelected);
+  }
+
   return (
-    <View style={styles.card}>
+    <View style={cardStyles}>
       <Text style={styles.text}>🏄</Text>
     </View>
   );
@@ -19,6 +29,11 @@ const styles = StyleSheet.create({
     margin: Spacing.cardMargin,
     borderRadius: Spacing.borderRadius,
     paddingVertical: 35,
+    borderWidth: 2,
+    borderColor: Colors.cardBg,
+  },
+  cardSelected: {
+    borderColor: Colors.primary,
   },
   text: {
     fontSize: 35,
