@@ -5,6 +5,12 @@ import {
   TextStyle,
   TouchableOpacity,
 } from "react-native";
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+  withDelay,
+} from "react-native-reanimated";
 
 import { Colors, Spacing, Theme } from "constants/index";
 
@@ -38,7 +44,48 @@ export const GameCard = ({
     textStyles.push(styles.textDisabled);
   }
 
-  const emoji = emojis[index];
+  // Back = the side of the card initially shown (with the ❓)
+  const backStyles = useAnimatedStyle(() => {
+    return {
+      // if the card is becoming visible we want to immediately start the hide animation of the "back"
+      // of the card. If we're showing the emoji, we want to wait for this animation to start so that
+      // the emoji starts to fade away first, thus the delay
+      opacity: withDelay(
+        visible ? 0 : 250,
+        withTiming(visible ? 0 : 1, {
+          duration: 500,
+        })
+      ),
+      transform: [
+        {
+          rotateY: withDelay(
+            visible ? 0 : 250,
+            withTiming(visible ? "90deg" : "0deg", { duration: 500 })
+          ),
+        },
+      ],
+    };
+  });
+
+  // Front = the side of the card that is shown when the card is clicked. The emoji side
+  const frontStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withDelay(
+        visible ? 250 : 0,
+        withTiming(visible ? 1 : 0, {
+          duration: 500,
+        })
+      ),
+      transform: [
+        {
+          rotateY: withDelay(
+            visible ? 250 : 0,
+            withTiming(visible ? "0deg" : "90deg", { duration: 500 })
+          ),
+        },
+      ],
+    };
+  });
 
   return (
     <TouchableOpacity
@@ -47,7 +94,10 @@ export const GameCard = ({
       activeOpacity={0.75}
       disabled={disabled}
     >
-      <Text style={textStyles}>{visible ? emoji : "❓"}</Text>
+      <Animated.Text style={[textStyles, backStyles]}>❓</Animated.Text>
+      <Animated.Text style={[textStyles, frontStyles]}>
+        {emojis[index]}
+      </Animated.Text>
     </TouchableOpacity>
   );
 };
@@ -68,6 +118,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 35,
+    position: "absolute",
   },
   textDisabled: {
     opacity: 0.7,
