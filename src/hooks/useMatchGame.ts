@@ -1,49 +1,39 @@
 import { useState } from "react";
 import _ from "lodash";
 
-export type Emoji = {
-  emoji: string;
-};
+export type Emoji = string;
 
 const emojiList: Emoji[] = [
-  {
-    emoji: "🤠",
-  },
-  {
-    emoji: "😈",
-  },
-  {
-    emoji: "👻",
-  },
-  {
-    emoji: "🦖",
-  },
-  {
-    emoji: "☃️",
-  },
-  {
-    emoji: "🥕",
-  },
-  {
-    emoji: "📬",
-  },
-  {
-    emoji: "📸",
-  },
+  "🤠",
+  "😈",
+  "👻",
+  "🦖",
+  "🥕",
+  "📬",
+  "📸",
+  "🦦",
+  "🙀",
+  "🏄",
+  "😇",
+  "🏳️‍🌈",
+  "💣",
 ];
 
-const shuffleEmojis = (deck: Emoji[]) => {
-  return _.shuffle([...deck, ...deck]);
+const shuffleEmojis = () => {
+  // Shuffle the deck of emojis so we get different ones each game
+  const shortenedDeck = _.shuffle(emojiList).slice(0, 8);
+  // Shuffle the active deck so the card at 0 doesn't always equal the card at 8
+  return _.shuffle([...shortenedDeck, ...shortenedDeck]);
 };
 
 export const useMatchGame = () => {
-  const [emojis, setEmojis] = useState(shuffleEmojis(emojiList));
+  const [emojis, setEmojis] = useState(shuffleEmojis());
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
   const [comparisonCards, setComparisonCards] = useState<number[]>([]);
   const [totalMoves, setTotalMoves] = useState(0);
 
   const reset = () => {
-    setEmojis(shuffleEmojis(emojiList));
+    setEmojis(shuffleEmojis());
     setMatchedCards([]);
     setComparisonCards([]);
     setTotalMoves(0);
@@ -87,6 +77,6 @@ export const useMatchGame = () => {
     comparisonCards,
     totalMoves,
     matchCount: matchedCards.length / 2,
-    totalPairs: emojiList.length,
+    totalPairs: emojis.length / 2,
   };
 };

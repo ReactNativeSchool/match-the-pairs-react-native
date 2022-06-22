@@ -47,7 +47,7 @@ export const GameCard = ({
       activeOpacity={0.75}
       disabled={disabled}
     >
-      <Text style={textStyles}>{visible ? emoji?.emoji : "❓"}</Text>
+      <Text style={textStyles}>{visible ? emoji : "❓"}</Text>
     </TouchableOpacity>
   );
 };
