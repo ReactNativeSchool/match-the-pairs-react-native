@@ -15,12 +15,21 @@ export const StatsCard = (props: StatsCardProps) => {
 
   const [cardWidth, setCardWidth] = React.useState(0);
 
-  const progressBarStyles: ViewStyle[] = [styles.progressBarContainer];
+  const progressBarContainerStyles: ViewStyle[] = [styles.progressBarContainer];
   let progressBarWidth = 0;
 
   if (showProgressBar) {
-    progressBarStyles.push({ backgroundColor: Colors.greyMedium });
+    progressBarContainerStyles.push({ backgroundColor: Colors.greyMedium });
     progressBarWidth = (primaryValue / secondaryValue) * cardWidth;
+  }
+
+  const progressBarStyles: ViewStyle[] = [
+    styles.progressBar,
+    { width: progressBarWidth },
+  ];
+
+  if (primaryValue === secondaryValue) {
+    progressBarStyles.push({ borderBottomRightRadius: 0 });
   }
 
   return (
@@ -28,8 +37,8 @@ export const StatsCard = (props: StatsCardProps) => {
       style={styles.container}
       onLayout={(e) => setCardWidth(e.nativeEvent.layout.width)}
     >
-      <View style={progressBarStyles}>
-        <View style={[styles.progressBar, { width: progressBarWidth }]} />
+      <View style={progressBarContainerStyles}>
+        <View style={progressBarStyles} />
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>{props.title}</Text>
