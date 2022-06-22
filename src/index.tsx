@@ -1,1 +1,3 @@
-export default () => null;
+import Screen from "screens/MatchThePairs";
+
+export default Screen;
