@@ -33,10 +33,14 @@ export const useMatchGame = () => {
   }, [comparisonCards]);
 
   const reset = () => {
-    setEmojis(shuffleEmojis());
     setMatchedCards([]);
     setComparisonCards([]);
     setTotalMoves(0);
+    setTimeout(() => {
+      // We want to wait to shuffle the emojis otherwise any cards that are "flipped" will show
+      // the new emoji before it flips over
+      setEmojis(shuffleEmojis());
+    }, 500);
   };
 
   const chooseCard = (index: number) => {
