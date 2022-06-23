@@ -95,8 +95,6 @@ export const GameCard = ({
       <Animated.View style={backStyles}>
         <Image source={CardBack} style={styles.image} resizeMode="contain" />
       </Animated.View>
-      {/* <Animated.Image style={[textStyles, backStyles]} source={CardBack} /> */}
-      {/* <Animated.Text style={[textStyles, backStyles]}>❓</Animated.Text> */}
       <Animated.Text style={[textStyles, frontStyles]}>
         {emojis[index]}
       </Animated.Text>

@@ -7,6 +7,7 @@ import { Button } from "components/buttons";
 import { Spacing, Colors } from "constants/index";
 
 import { useMatchGame } from "hooks/useMatchGame";
+import { shareGame } from "src/utils/shareGame";
 
 const ROWS = [
   [0, 1, 2, 3],
@@ -30,6 +31,14 @@ const MatchThePairs = () => {
 
   const handlePress = (index: number) => {
     chooseCard(index);
+  };
+
+  const handleShare = () => {
+    if (matchCount === totalPairs) {
+      shareGame({ emojis, moveCount: totalMoves });
+    } else {
+      alert("You haven't matched all the pairs yet!");
+    }
   };
 
   return (
@@ -74,7 +83,7 @@ const MatchThePairs = () => {
         <Button type="primary" onPress={() => reset()}>
           Reset game
         </Button>
-        <Button onPress={() => alert("todo")}>Share game</Button>
+        <Button onPress={handleShare}>Share game</Button>
       </View>
     </SafeAreaView>
   );
