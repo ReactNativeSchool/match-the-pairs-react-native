@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import _ from "lodash";
 
 export type Emoji = string;
@@ -31,6 +31,22 @@ export const useMatchGame = () => {
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
   const [comparisonCards, setComparisonCards] = useState<number[]>([]);
   const [totalMoves, setTotalMoves] = useState(0);
+
+  useEffect(() => {
+    // After they've selected two cards we'll hide them after one second
+    let timeout: ReturnType<typeof setTimeout>;
+    if (comparisonCards.length == 2) {
+      timeout = setTimeout(() => {
+        setComparisonCards([]);
+      }, 1000);
+    }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [comparisonCards]);
 
   const reset = () => {
     setEmojis(shuffleEmojis());
