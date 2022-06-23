@@ -6,7 +6,7 @@ import { Button } from "components/buttons";
 
 import { Spacing, Colors } from "constants/index";
 
-import { useMatchGame, Emoji } from "hooks/useMatchGame";
+import { useMatchGame } from "hooks/useMatchGame";
 
 const ROWS = [
   [0, 1, 2, 3],

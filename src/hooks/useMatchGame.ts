@@ -1,28 +1,12 @@
 import { useState, useEffect } from "react";
 import _ from "lodash";
 
-export type Emoji = string;
-
-const emojiList: Emoji[] = [
-  "🤠",
-  "😈",
-  "👻",
-  "🦖",
-  "🥕",
-  "📬",
-  "📸",
-  "🦦",
-  "🙀",
-  "🏄",
-  "😇",
-  "🏳️‍🌈",
-  "💣",
-];
+import { emojiList } from "src/constants";
 
 const shuffleEmojis = () => {
-  // Shuffle the deck of emojis so we get different ones each game
+  // Shuffle the deck of emojis so we get different ones each game then grab the first 8
   const shortenedDeck = _.shuffle(emojiList).slice(0, 8);
-  // Shuffle the active deck so the card at 0 doesn't always equal the card at 8
+  // Make a deck with 2 of each emoji and then shuffle that
   return _.shuffle([...shortenedDeck, ...shortenedDeck]);
 };
 

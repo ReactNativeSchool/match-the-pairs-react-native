@@ -12,12 +12,10 @@ import Animated, {
 
 import { Colors, Spacing, Theme } from "constants/index";
 
-import { Emoji } from "hooks/useMatchGame";
-
 type GameCardProps = {
   selected?: boolean;
   index: number;
-  emojis: Emoji[];
+  emojis: string[];
   onPress: () => void;
   visible: boolean;
   disabled: boolean;
