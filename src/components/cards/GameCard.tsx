@@ -3,6 +3,7 @@ import {
   ViewStyle,
   TextStyle,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import Animated, {
   withTiming,
@@ -11,6 +12,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { Colors, Spacing, Theme } from "constants/index";
+import CardBack from "images/card-back.png";
 
 type GameCardProps = {
   selected?: boolean;
@@ -90,7 +92,11 @@ export const GameCard = ({
       activeOpacity={0.75}
       disabled={disabled}
     >
-      <Animated.Text style={[textStyles, backStyles]}>❓</Animated.Text>
+      <Animated.View style={backStyles}>
+        <Image source={CardBack} style={styles.image} resizeMode="contain" />
+      </Animated.View>
+      {/* <Animated.Image style={[textStyles, backStyles]} source={CardBack} /> */}
+      {/* <Animated.Text style={[textStyles, backStyles]}>❓</Animated.Text> */}
       <Animated.Text style={[textStyles, frontStyles]}>
         {emojis[index]}
       </Animated.Text>
@@ -118,5 +124,10 @@ const styles = StyleSheet.create({
   },
   textDisabled: {
     opacity: 0.7,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    tintColor: Colors.greyDark,
   },
 });
