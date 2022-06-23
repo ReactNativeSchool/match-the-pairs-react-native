@@ -1,12 +1,10 @@
 import {
   StyleSheet,
-  Text,
   ViewStyle,
   TextStyle,
   TouchableOpacity,
 } from "react-native";
 import Animated, {
-  useSharedValue,
   withTiming,
   useAnimatedStyle,
   withDelay,
