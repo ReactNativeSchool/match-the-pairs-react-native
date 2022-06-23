@@ -1,16 +1,27 @@
-## Challenge
+## Expo/React Native Match the Pairs Game
 
-Build a game of _Match the Pairs_. You're provided with 8 emojis and should build a game where you need to select the matching emojis in subsequent turns.
+[Design based on Netlify's Deploy Game](https://www.netlify.com/).
 
-Requied Features:
+A quick game that let's you match 8 pairs of emoji's and share your results.
 
-- 4x4 grid
-- Display the currently selected card
-- Display all matching pairs
-- Count the number of moves. A move is only counted once you make a guess as to where the matching card is.
-- Ability to reset the game
-- Delay flipping the comparsion card so the user can see what it is
+Features include:
 
-Bonus Features
+- Randomized list of emojis so you have new emojis each game
+- Flip animation with Reanimated
+- Share capability with the React Native Share API
 
-- Animate the card "flip"
+![Screenshots of app on iOS, Web, and Android](./assets/demo.png)
+
+## Install
+
+Pre-requisite: You'll need [Expo](https://expo.dev/) installed on your machine.
+
+Clone the Repo: `git clone https://github.com/ReactNativeSchool/match-the-pairs-react-native.git`
+
+Install Depedencies: `yarn install` / `npm install`
+
+## Running the App
+
+- iOS: `yarn ios` / `npm run ios`
+- Android: `yarn android` / `npm run android`
+- Web: `yarn web` / `npm run web`
