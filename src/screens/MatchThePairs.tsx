@@ -51,10 +51,10 @@ const MatchThePairs = () => {
       <View style={[styles.row, styles.stats]}>
         <StatsCard
           title="Pairs matched"
-          primaryValue={matchCount}
-          secondaryValue={totalPairs}
+          numerator={matchCount}
+          denominator={totalPairs}
         />
-        <StatsCard title="Total moves" primaryValue={totalMoves} />
+        <StatsCard title="Total moves" numerator={totalMoves} />
       </View>
 
       {ROWS.map((indices, rowIndex) => (

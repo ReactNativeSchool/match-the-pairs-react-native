@@ -9,13 +9,13 @@ import { Colors, Spacing, Theme } from "src/constants";
 
 type StatsCardProps = {
   title: string;
-  primaryValue: number;
-  secondaryValue?: number;
+  numerator: number;
+  denominator?: number;
 };
 
 export const StatsCard = (props: StatsCardProps) => {
-  const { secondaryValue, primaryValue } = props;
-  const showProgressBar = secondaryValue !== undefined;
+  const { numerator, denominator } = props;
+  const showProgressBar = denominator !== undefined;
 
   const [cardWidth, setCardWidth] = React.useState(0);
 
@@ -35,21 +35,21 @@ export const StatsCard = (props: StatsCardProps) => {
     // We clamp at 0 and the last number so that the bar doesn't extend outside of
     // the card. If we jump from 8 to 0 (reseting a game) the bar glitches and
     // empties, refills, and empties again. Clamping fixes that.
-    const useClamping = primaryValue === 0 || primaryValue >= secondaryValue;
+    const useClamping = numerator === 0 || numerator >= denominator;
     return {
-      width: withSpring((primaryValue / secondaryValue) * cardWidth, {
+      width: withSpring((numerator / denominator) * cardWidth, {
         overshootClamping: useClamping,
         stiffness: 75,
       }),
     };
-  }, [primaryValue, secondaryValue, cardWidth]);
+  }, [numerator, denominator, cardWidth]);
 
   const progressBarStyles: ViewStyle[] = [
     styles.progressBar,
     progressBarWidthAnimated,
   ];
 
-  if (primaryValue === secondaryValue) {
+  if (numerator === denominator) {
     progressBarStyles.push({ borderBottomRightRadius: 0 });
   }
 
@@ -63,10 +63,10 @@ export const StatsCard = (props: StatsCardProps) => {
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.primaryValue}>
-          {primaryValue}
-          {secondaryValue && (
-            <Text style={styles.secondaryValue}>{`/${secondaryValue}`}</Text>
+        <Text style={styles.numerator}>
+          {numerator}
+          {denominator && (
+            <Text style={styles.denominator}>{`/${denominator}`}</Text>
           )}
         </Text>
       </View>
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
     color: Colors.greyDarkest,
     marginBottom: Spacing.xs,
   },
-  primaryValue: {
+  numerator: {
     color: Colors.greyDarkest,
     fontSize: 20,
     fontWeight: "600",
   },
-  secondaryValue: {
+  denominator: {
     color: Colors.greyDark,
     fontSize: 14,
     fontWeight: "500",
