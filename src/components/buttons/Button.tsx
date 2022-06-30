@@ -1,9 +1,9 @@
 import {
-  TouchableOpacity,
   Text,
   StyleSheet,
   ViewStyle,
   TextStyle,
+  Pressable,
 } from "react-native";
 
 import { Colors, Spacing, Theme } from "constants/index";
@@ -24,9 +24,15 @@ export const Button = ({ onPress, children, type }: ButtonProps) => {
   }
 
   return (
-    <TouchableOpacity onPress={onPress} style={buttonStyles}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        ...buttonStyles,
+        { opacity: pressed ? 0.75 : 1 },
+      ]}
+    >
       <Text style={textStyles}>{children}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
