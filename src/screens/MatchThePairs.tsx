@@ -34,11 +34,11 @@ const MatchThePairs = () => {
   };
 
   const handleShare = () => {
-    if (matchCount === totalPairs) {
-      shareGame({ emojis, moveCount: totalMoves });
-    } else {
-      alert("You haven't matched all the pairs yet!");
-    }
+    // if (matchCount === totalPairs) {
+    shareGame({ emojis, moveCount: totalMoves });
+    // } else {
+    //   alert("You haven't matched all the pairs yet!");
+    // }
   };
 
   return (
