@@ -1,5 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Text, ViewStyle } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 
 import { Colors, Spacing, Theme } from "src/constants";
 
@@ -16,16 +20,33 @@ export const StatsCard = (props: StatsCardProps) => {
   const [cardWidth, setCardWidth] = React.useState(0);
 
   const progressBarContainerStyles: ViewStyle[] = [styles.progressBarContainer];
-  let progressBarWidth = 0;
 
   if (showProgressBar) {
     progressBarContainerStyles.push({ backgroundColor: Colors.greyMedium });
-    progressBarWidth = (primaryValue / secondaryValue) * cardWidth;
   }
+
+  const progressBarWidthAnimated = useAnimatedStyle(() => {
+    if (!showProgressBar) {
+      return {
+        width: 0,
+      };
+    }
+
+    // We clamp at 0 and the last number so that the bar doesn't extend outside of
+    // the card. If we jump from 8 to 0 (reseting a game) the bar glitches and
+    // empties, refills, and empties again. Clamping fixes that.
+    const useClamping = primaryValue === 0 || primaryValue >= secondaryValue;
+    return {
+      width: withSpring((primaryValue / secondaryValue) * cardWidth, {
+        overshootClamping: useClamping,
+        stiffness: 75,
+      }),
+    };
+  }, [primaryValue, secondaryValue, cardWidth]);
 
   const progressBarStyles: ViewStyle[] = [
     styles.progressBar,
-    { width: progressBarWidth },
+    progressBarWidthAnimated,
   ];
 
   if (primaryValue === secondaryValue) {
@@ -38,7 +59,7 @@ export const StatsCard = (props: StatsCardProps) => {
       onLayout={(e) => setCardWidth(e.nativeEvent.layout.width)}
     >
       <View style={progressBarContainerStyles}>
-        <View style={progressBarStyles} />
+        <Animated.View style={progressBarStyles} />
       </View>
       <View style={styles.content}>
         <Text style={styles.title}>{props.title}</Text>
