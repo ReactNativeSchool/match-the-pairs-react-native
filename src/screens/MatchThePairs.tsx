@@ -43,56 +43,66 @@ const MatchThePairs = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="dark" />
-      <View style={[styles.row, styles.header]}>
-        <Text style={styles.headerText}>Match the pairs 🤔</Text>
-      </View>
-
-      <View style={[styles.row, styles.stats]}>
-        <StatsCard
-          title="Pairs matched"
-          numerator={matchCount}
-          denominator={totalPairs}
-        />
-        <StatsCard title="Total moves" numerator={totalMoves} />
-      </View>
-
-      {ROWS.map((indices, rowIndex) => (
-        <View style={[styles.row, styles.gameRow]} key={rowIndex}>
-          {indices.map((emojiIndex) => {
-            const inMatchedCard = matchedCards.includes(emojiIndex);
-            const cardIsVisible =
-              inMatchedCard || comparisonCards.includes(emojiIndex);
-
-            return (
-              <GameCard
-                key={emojiIndex}
-                index={emojiIndex}
-                emojis={emojis}
-                onPress={() => handlePress(emojiIndex)}
-                selected={activeCardIndex === emojiIndex}
-                visible={cardIsVisible}
-                disabled={inMatchedCard}
-              />
-            );
-          })}
+      <View style={styles.content}>
+        <StatusBar style="dark" />
+        <View style={[styles.row, styles.header]}>
+          <Text style={styles.headerText}>Match the pairs 🤔</Text>
         </View>
-      ))}
 
-      <View style={[styles.row, styles.actions]}>
-        <Button type="primary" onPress={() => reset()}>
-          Reset game
-        </Button>
-        <Button onPress={handleShare}>Share game</Button>
+        <View style={[styles.row, styles.stats]}>
+          <StatsCard
+            title="Pairs matched"
+            numerator={matchCount}
+            denominator={totalPairs}
+          />
+          <StatsCard title="Total moves" numerator={totalMoves} />
+        </View>
+
+        {ROWS.map((indices, rowIndex) => (
+          <View style={[styles.row, styles.gameRow]} key={rowIndex}>
+            {indices.map((emojiIndex) => {
+              const inMatchedCard = matchedCards.includes(emojiIndex);
+              const cardIsVisible =
+                inMatchedCard || comparisonCards.includes(emojiIndex);
+
+              return (
+                <GameCard
+                  key={emojiIndex}
+                  index={emojiIndex}
+                  emojis={emojis}
+                  onPress={() => handlePress(emojiIndex)}
+                  selected={activeCardIndex === emojiIndex}
+                  visible={cardIsVisible}
+                  disabled={inMatchedCard}
+                />
+              );
+            })}
+          </View>
+        ))}
+
+        <View style={[styles.row, styles.actions]}>
+          <Button type="primary" onPress={() => reset()}>
+            Reset game
+          </Button>
+          <Button onPress={handleShare}>Share game</Button>
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  // container and content are used together to make sure the board doesn't get too wide
+  // and ensure the board is always centered
   container: {
     flex: 1,
     paddingVertical: Spacing.lg,
+    alignItems: "center",
+  },
+  content: {
+    flex: 1,
+    width: "100%",
+    maxWidth: 550,
   },
   headerText: {
     color: Colors.greyDarkest,
